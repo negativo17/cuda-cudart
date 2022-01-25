@@ -10,7 +10,7 @@ Name:           %(echo %real_name | tr '_' '-')
 Epoch:          1
 Version:        11.6.55
 Release:        1%{?dist}
-Summary:        CUDA Runtime (cudart)
+Summary:        CUDA Runtime API library
 License:        CUDA Toolkit
 URL:            https://developer.nvidia.com/cuda-toolkit
 ExclusiveArch:  x86_64 ppc64le aarch64
@@ -21,7 +21,7 @@ Source2:        https://developer.download.nvidia.com/compute/cuda/redist/%{real
 Source3:        cudart.pc
 
 Requires(post): ldconfig
-Conflicts:      %{name}-cudart-%{major_package_version} < %{?epoch:%{epoch}:}%{version}-%{release}
+Conflicts:      %{name}-%{major_package_version} < %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description
 CUDA Runtime (cudart).
@@ -54,12 +54,11 @@ This package contains static libraries for NVIDIA CUDA Runtime API.
 %setup -q -T -b 2 -n %{real_name}-linux-sbsa-%{version}-archive
 %endif
 
-%ldconfig_scriptlets
-
 %install
 mkdir -p %{buildroot}%{_includedir}
 mkdir -p %{buildroot}%{_libdir}
 mkdir -p %{buildroot}%{_libdir}/pkgconfig/
+
 cp -fr include/* %{buildroot}%{_includedir}/
 cp -fr lib/libcu* %{buildroot}%{_libdir}/
 cp -fr %{SOURCE3} %{buildroot}/%{_libdir}/pkgconfig/
@@ -68,8 +67,10 @@ cp -fr %{SOURCE3} %{buildroot}/%{_libdir}/pkgconfig/
 sed -i \
     -e 's|CUDA_VERSION|%{version}|g' \
     -e 's|LIBDIR|%{_libdir}|g' \
-    -e 's|INCLUDE_DIR|%{_includedir}/cuda|g' \
+    -e 's|INCLUDE_DIR|%{_includedir}|g' \
     %{buildroot}/%{_libdir}/pkgconfig/*.pc
+
+%{?ldconfig_scriptlets}
 
 %files
 %license LICENSE
@@ -86,6 +87,6 @@ sed -i \
 %{_libdir}/libcudart_static.a
 
 %changelog
-* Tue Jan 25 2022 Simone Caronni <negativo17@gmail.com> - 11.6.55-1
+* Tue Jan 25 2022 Simone Caronni <negativo17@gmail.com> - 1:11.6.55-1
 - First build with the new tarball components.
 
