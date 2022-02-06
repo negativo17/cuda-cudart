@@ -9,7 +9,7 @@
 Name:           %(echo %real_name | tr '_' '-')
 Epoch:          1
 Version:        11.6.55
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CUDA Runtime API library
 License:        CUDA Toolkit
 URL:            https://developer.nvidia.com/cuda-toolkit
@@ -28,6 +28,7 @@ CUDA Runtime (cudart).
 
 %package devel
 Summary:        Development files for NVIDIA CUDA Runtime API library
+Requires:       opencl-headers
 Requires:       %{name}%{_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Conflicts:      %{name}-devel-%{major_package_version} < %{?epoch:%{epoch}:}%{version}
 
@@ -60,6 +61,7 @@ mkdir -p %{buildroot}%{_libdir}
 mkdir -p %{buildroot}%{_libdir}/pkgconfig/
 
 cp -fr include/* %{buildroot}%{_includedir}/
+rm -fr %{buildroot}%{_includedir}/CL
 cp -fr lib/libcu* %{buildroot}%{_libdir}/
 cp -fr %{SOURCE3} %{buildroot}/%{_libdir}/pkgconfig/
 
@@ -87,6 +89,9 @@ sed -i \
 %{_libdir}/libcudart_static.a
 
 %changelog
+* Sun Feb 06 2022 Simone Caronni <negativo17@gmail.com> - 1:11.6.55-2
+- Use packaged OpenCL headers.
+
 * Tue Jan 25 2022 Simone Caronni <negativo17@gmail.com> - 1:11.6.55-1
 - First build with the new tarball components.
 
