@@ -8,8 +8,8 @@
 
 Name:           %(echo %real_name | tr '_' '-')
 Epoch:          1
-Version:        11.6.55
-Release:        2%{?dist}
+Version:        11.7.60
+Release:        1%{?dist}
 Summary:        CUDA Runtime API library
 License:        CUDA Toolkit
 URL:            https://developer.nvidia.com/cuda-toolkit
@@ -89,6 +89,9 @@ sed -i \
 %{_libdir}/libcudart_static.a
 
 %changelog
+* Thu Jun 23 2022 Simone Caronni <negativo17@gmail.com> - 1:11.7.60-1
+- Update to 11.7.60.
+
 * Sun Feb 06 2022 Simone Caronni <negativo17@gmail.com> - 1:11.6.55-2
 - Use packaged OpenCL headers.
 
