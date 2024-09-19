@@ -8,7 +8,7 @@
 
 Name:           %(echo %real_name | tr '_' '-')
 Epoch:          1
-Version:        12.5.82
+Version:        12.6.68
 Release:        1%{?dist}
 Summary:        CUDA Runtime API library
 License:        CUDA Toolkit
@@ -84,6 +84,9 @@ sed -i \
 %{_libdir}/libcudart_static.a
 
 %changelog
+* Thu Sep 19 2024 Simone Caronni <negativo17@gmail.com> - 1:12.6.68-1
+- Update to 12.6.68.
+
 * Thu Jul 11 2024 Simone Caronni <negativo17@gmail.com> - 1:12.5.82-1
 - Update to 12.5.82.
 
