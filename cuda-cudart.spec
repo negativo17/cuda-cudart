@@ -74,7 +74,6 @@ sed -i \
 %{_includedir}/*
 %{_libdir}/libcudadevrt.a
 %{_libdir}/libcudart.so
-%{_libdir}/libculibos.a
 %{_libdir}/pkgconfig/cudart.pc
 
 %files static
